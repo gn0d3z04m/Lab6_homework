@@ -27,7 +27,7 @@ jobs:
         draft: false
         prerelease: false
         release_name: ${{ steps.version.outputs.version }}
-        tag_name: ${{ github.ref }}
+        automatic_release_tag: "latest"
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: upload artifact
