@@ -26,8 +26,8 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: new_rel
-        tag_name: rels
+        release_name: new_rel2
+        tag_name: rels2
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: upload artifact
@@ -36,8 +36,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/linux-1.0.0-sources.tar.gz
-        asset_name: linux-1.0.0-sources.tar.gz
+        asset_path: build/lab6-0.1.1-Linux-source.tar.gz
+        asset_name: lab6-0.1.1-Linux-source.tar.gz
         asset_content_type: application/gzip
     - name: upload  artifact
       uses: actions/upload-release-asset@v1
@@ -45,8 +45,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/linux-1.0.0-sources.zip
-        asset_name: linux-1.0.0-sources.zip
+        asset_path: build/lab6-0.1.1-Linux-source.zip
+        asset_name: lab6-0.1.1-Linux-source.zip
         asset_content_type: application/zip
     - name: upload  artifact
       uses: actions/upload-release-asset@v1
@@ -54,6 +54,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/linux-1.0.0-bin.deb
-        asset_name: linux-1.0.0-sources.deb
+        asset_path: build/lab6-0.1.1-Linux-bin.deb
+        asset_name: lab6-0.1.1-Linux-bin.deb
         asset_content_type: application/deb
