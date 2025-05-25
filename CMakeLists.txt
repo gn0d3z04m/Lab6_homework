@@ -70,7 +70,7 @@ add_custom_target(packageBin
 add_custom_target(packageBin_RPM
   COMMAND cpack
     -D CPACK_GENERATOR="RPM"
-    -D CPACK_COMPONETNS_ALL=bin
+    -D CPACK_COMPONENTS_ALL=bin
 )
 
 add_custom_target(package_all
