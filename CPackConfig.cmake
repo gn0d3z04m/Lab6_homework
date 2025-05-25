@@ -1,7 +1,0 @@
-include(InstallRequiredSystemLibraries)
-include(CPack)
-set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
-set(CPACK_DEB_COMPONENT_INSTALL ON)
-set(CPACK_GENERATOR "TGZ")
-set(CPACK_SOURCE_GENERATOR "TGZ")
-set(CPACK_COMPONENTS_ALL "sources;bin")
