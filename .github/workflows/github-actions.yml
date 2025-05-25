@@ -1,7 +1,6 @@
 name: GitHub Actions 
 run-name: ${{ github.actor }} test
 on: [push]
-      
 jobs:
   build_release:
     name: build_release
