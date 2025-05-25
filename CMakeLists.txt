@@ -41,7 +41,11 @@ install(DIRECTORY "solver_lib"
     COMPONENT sources
 )
 
-
+set(CPACK_RPM_PACKAGE_NAME "print-devel")
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "print")
+set(CPACK_RPM_CHANGELOG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+set(CPACK_RPM_PACKAGE_RELEASE 1)
 
 
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Your name")
@@ -63,10 +67,17 @@ add_custom_target(packageBin
   COMMENT "Building packages for Component B (DEB/RPM)"
 )
 
+add_custom_target(packageBin_RPM
+  COMMAND cpack
+    -D CPACK_GENERATOR="RPM"
+    -D CPACK_COMPONETNS_ALL=bin
+)
+
 add_custom_target(package_all
   DEPENDS
     packageSources
     packageBin
+    packageBin_RPM
   COMMENT "Building all packages"
 )
 
