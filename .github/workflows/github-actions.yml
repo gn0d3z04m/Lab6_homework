@@ -1,0 +1,21 @@
+name: GitHub Actions 
+run-name: ${{ github.actor }} test
+on: [push]
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+    - name: Вывод содержимого директории
+      run: |
+        ls ${{ github.workspace }}
+    - name: CMake Action
+      uses: threeal/cmake-action@v2.1.0
+    - name: Компиляция
+      run: cmake -H. -Bbuild
+    - name: Компиляция2
+      run:  cmake --build build --target=package_all
+    - name: Вывод содержимого директории
+      run: |
+        ls ${{ github.workspace }}
