@@ -11,3 +11,22 @@ add_subdirectory(formatter_lib)
 add_subdirectory(solver_lib)
 add_subdirectory(solver_application)
 add_subdirectory(hello_world_application)
+
+install(TARGETS solva
+    RUNTIME DESTINATION bin 
+    LIBRARY DESTINATION lib 
+    ARCHIVE DESTINATION lib
+    COMPONENT bin
+)
+
+install(DIRECTORY "formatter_lib"
+    DESTINATION sources
+    COMPONENT sources
+)
+
+install(DIRECTORY "formatter_ex_lib" 
+    DESTINATION sources
+    COMPONENT sources 
+)
+
+include(CPackConfig.cmake)
