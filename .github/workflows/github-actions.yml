@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} test
 on: [push]
 jobs:
   Test:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
