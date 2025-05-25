@@ -26,7 +26,7 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: new_rel3
+        release_name: ${{ steps.version.outputs.version }}
         tag_name: rels3
       env:
         GITHUB_TOKEN: ${{ github.token }}
