@@ -1,9 +1,6 @@
 name: GitHub Actions 
 run-name: ${{ github.actor }} test
-on:
-  push:
-    tags:
-      - '*'
+on: [push]
       
 jobs:
   build_release:
@@ -28,8 +25,8 @@ jobs:
           draft: false
           prerelease: false
           release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
+          tag_name: Latest
+          body_path: ChangeLog.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: upload linux artifact
