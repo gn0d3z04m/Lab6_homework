@@ -47,6 +47,14 @@ set(CPACK_RPM_PACKAGE_GROUP "print")
 set(CPACK_RPM_CHANGELOG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
 set(CPACK_RPM_PACKAGE_RELEASE 1)
 
+set(CPACK_DMG_VOLUME_NAME "Solver Installer")
+
+set(CPACK_NSIS_MODIFY_PATH ON)
+set(CPACK_NSIS_DISPLAY_NAME "Math Solver")
+set(CPACK_NSIS_PACKAGE_NAME "Solver ${PROJECT_VERSION}")
+set(CPACK_NSIS_CONTACT "support@example.com")
+
+
 
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Your name")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>=2.28), zlib1g")
@@ -73,11 +81,24 @@ add_custom_target(packageBin_RPM
     -D CPACK_COMPONENTS_ALL=bin
 )
 
+add_custom_target(packageBin_DMG
+  COMMAND cpack
+    -D CPACK_GENERATOR="DragNDrop"
+    -D CPACK_COMPONENTS_ALL=bin
+)
+
+add_custom_target(packageBin_MSI
+  COMMAND cpack
+    -D CPACK_GENERATOR="NSIS"
+    -D CPACK_COMPONENTS_ALL=bin
+)
+
 add_custom_target(package_all
   DEPENDS
     packageSources
     packageBin
     packageBin_RPM
+    packageBin_DMG
   COMMENT "Building all packages"
 )
 
