@@ -72,35 +72,42 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: |
-          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-          choco install nsis
+        uses: actions/checkout@v4
 
-      - name: Create build directory
-        run: mkdir build
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.27'
+
+      - name: Debug WiX
+        run: |
+          Get-Command candle.exe -ErrorAction SilentlyContinue
+          candle -?
+
+      - name: Add WiX Toolset to PATH
+        run: |
+          $wixPath = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
+          if (Test-Path $wixPath) {
+            echo "WiX found at $wixPath, adding to PATH..."
+            echo "$wixPath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          } else {
+            Write-Error "WiX Toolset not found at $wixPath!"
+            exit 1
+          }
 
       - name: Configure CMake
-        run: cmake -S . -B build -DCPACK_GENERATOR="NSIS"
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
         run: cmake --build build
 
-      - name: Create MSI package
-        run: cd build && dir
-
-      - name: List build directory contents
+      - name: Generate MSI with CPack
         run: |
           cd build
           cpack -G WIX
 
-      - name: upload  artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload MSI Artifact
+        uses: actions/upload-artifact@v4
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/lab6-0.1.1-Linux-bin.msi
-          asset_name: lab6-0.1.1-Linux-bin.msi
-          asset_content_type: application/msi
+          name: HelloWorld-Installer
+          path: build/lab6-*.msi
