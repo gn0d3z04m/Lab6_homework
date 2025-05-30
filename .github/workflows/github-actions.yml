@@ -75,7 +75,7 @@ jobs:
       - name: Generate MSI with CPack
         run: |
           cd build
-          cpack -G WIX -C Release
+          cpack -G WIX -C Release -D CPACK_COMPONENTS_ALL=bin
 
       - name: Upload assets to GitHub release
         uses: softprops/action-gh-release@v1
