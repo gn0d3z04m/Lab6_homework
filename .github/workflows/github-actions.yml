@@ -36,6 +36,7 @@ jobs:
 
         
   windows-build:
+    permissions: write-all
     runs-on: windows-latest
     steps:
       - name: Checkout code
