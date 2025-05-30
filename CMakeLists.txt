@@ -93,7 +93,7 @@ add_custom_target(packageBin_DMG
 
 add_custom_target(packageBin_MSI
   COMMAND cpack
-    -D CPACK_GENERATOR="NSIS"
+    -D CPACK_GENERATOR="WIX"
     -D CPACK_COMPONENTS_ALL=bin
 )
 
@@ -101,8 +101,6 @@ add_custom_target(package_all
   DEPENDS
     packageSources
     packageBin
-    packageBin_RPM
-    packageBin_DMG
   COMMENT "Building all packages"
 )
 
