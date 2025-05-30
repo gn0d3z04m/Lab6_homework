@@ -101,6 +101,7 @@ add_custom_target(package_all
   DEPENDS
     packageSources
     packageBin
+    packageBin_RPM
   COMMENT "Building all packages"
 )
 
