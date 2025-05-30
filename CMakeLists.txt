@@ -57,7 +57,7 @@ set(CPACK_NSIS_CONTACT "support@example.com")
 set(CPACK_WIX_PRODUCT_GUID "dsada")
 set(CPACK_WIX_UPGRADE_GUID "dasdsa")
 
-set(CPACK_PACKAGE_NAME "lab06")
+set(CPACK_PACKAGE_NAME "lab6")
 set(CPACK_PACKAGE_VERSION "0.1.1")
 
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Your name")
