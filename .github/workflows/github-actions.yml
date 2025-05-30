@@ -4,9 +4,12 @@ on:
   push:
     tags:
       - 'v*.*.*'
+
+permissions:
+  contents: write
+  
 jobs:
   Test:
-    permissions: write-all
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
@@ -36,7 +39,6 @@ jobs:
 
         
   windows-build:
-    permissions: write-all
     runs-on: windows-latest
     steps:
       - name: Checkout code
