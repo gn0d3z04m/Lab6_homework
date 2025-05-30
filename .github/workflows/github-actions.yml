@@ -1,6 +1,9 @@
 name: GitHub Actions 
 run-name: ${{ github.actor }} test
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*.*.*'
 jobs:
   Test:
     permissions: write-all
