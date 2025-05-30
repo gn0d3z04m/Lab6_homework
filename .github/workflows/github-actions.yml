@@ -106,8 +106,12 @@ jobs:
           cd build
           cpack -G WIX -C Release
 
-      - name: Upload MSI Artifact
-        uses: actions/upload-artifact@v4
+      - name: upload  artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: HelloWorld-Installer
-          path: build/lab6-*.msi
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/lab6-0.1.1-Linux-bin.msi
+          asset_name: lab6-0.1.1-Linux-bin.msi
+          asset_content_type: application/msi 
