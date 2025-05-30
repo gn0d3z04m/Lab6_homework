@@ -66,3 +66,38 @@ jobs:
         asset_path: build/lab6-0.1.1-Linux-bin.rpm
         asset_name: lab6-0.1.1-Linux-bin.rpm
         asset_content_type: application/rpm 
+
+        
+  windows-build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+          choco install nsis
+
+      - name: Create build directory
+        run: mkdir build
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DCPACK_GENERATOR="NSIS"
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Create MSI package
+        run: cd build && dir
+
+      - name: List build directory contents
+        run: |
+          cd build
+          cpack -G WIX
+
+      - name: Upload assets to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/*.msi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
