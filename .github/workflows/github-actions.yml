@@ -9,7 +9,7 @@ permissions:
   contents: write
   
 jobs:
-  Test:
+  linux:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
@@ -38,7 +38,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
-  windows-build:
+  windows:
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -69,12 +69,7 @@ jobs:
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
-        run: cmake --build build --config Release
-
-      - name: Generate MSI with CPack
-        run: |
-          cd build
-          cpack -G WIX -C Release
+        run: cmake --build build --target=PackageBin_MSI --config Release
 
       - name: Upload assets to GitHub release
         uses: softprops/action-gh-release@v1
@@ -83,3 +78,33 @@ jobs:
             build/*.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          
+  macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew install cmake
+
+      - name: Create build directory
+        run: mkdir build
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DCPACK_GENERATOR="DragNDrop"
+
+      - name: Build
+        run: cmake --build build --target=PackageBin_DMG
+
+
+      - name: List build directory contents
+        run: ls -R build
+
+      - name: Upload DMG to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
