@@ -9,6 +9,8 @@ add_subdirectory(solver_lib)
 add_subdirectory(solver_application)
 add_subdirectory(hello_world_application)
 install(TARGETS solva
+    RUNTIME DESTINATION bin
+    CONFIGURATIONS Release
     DESTINATION bin
     COMPONENT bin
 )
